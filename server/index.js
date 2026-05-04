@@ -13,10 +13,6 @@ mongoose
   .then(() => console.log("MongoDB connected"))
   .catch((err) => console.log(err));
 
-app.get("/", (req, res) => {
-  res.json({ message: "Server is running" });
-});
-
 app.use("/api/auth", authRoutes);
 
 const PORT = process.env.PORT || 5000;
