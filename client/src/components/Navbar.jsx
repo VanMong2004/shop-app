@@ -1,8 +1,9 @@
 import { Link, useNavigate } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
-
+import { useCart } from "../context/CartContext";
 export default function Navbar() {
   const { user, logout } = useAuth();
+  const { totalItems } = useCart();
   const navigate = useNavigate();
 
   const handleLogout = () => {
@@ -28,9 +29,14 @@ export default function Navbar() {
           )}
           <Link
             to="/cart"
-            className="text-sm text-slate-300 hover:text-white transition"
+            className="relative text-sm text-slate-300 hover:text-white transition"
           >
             Giỏ hàng
+            {totalItems > 0 && (
+              <span className="absolute -top-2 -right-3 bg-violet-600 text-white text-xs w-4 h-4 rounded-full flex items-center justify-center">
+                {totalItems}
+              </span>
+            )}
           </Link>
           <span className="text-sm text-slate-400">{user?.name}</span>
           <button

@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import axios from "../api/axios";
 import Navbar from "../components/Navbar";
+import { useCart } from "../context/CartContext";
 
 export default function ProductDetail() {
   const { id } = useParams();
@@ -9,6 +10,14 @@ export default function ProductDetail() {
   const [quantity, setQuantity] = useState(1);
   const [loading, setLoading] = useState(true);
   const navigate = useNavigate();
+  const { addToCart } = useCart();
+  const [added, setAdded] = useState(false);
+
+  const handleAddToCart = () => {
+    addToCart(product, quantity);
+    setAdded(true);
+    setTimeout(() => setAdded(false), 2000);
+  };
 
   useEffect(() => {
     axios
@@ -70,8 +79,11 @@ export default function ProductDetail() {
               </span>
             </div>
 
-            <button className="w-full bg-violet-600 hover:bg-violet-500 text-white font-semibold py-3 rounded-xl transition">
-              Thêm vào giỏ hàng
+            <button
+              onClick={handleAddToCart}
+              className="w-full bg-violet-600 hover:bg-violet-500 text-white font-semibold py-3 rounded-xl transition"
+            >
+              {added ? "✓ Đã thêm vào giỏ!" : "Thêm vào giỏ hàng"}
             </button>
           </div>
         </div>
