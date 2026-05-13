@@ -38,6 +38,12 @@ export default function Navbar() {
               </span>
             )}
           </Link>
+          <Link
+            to="/orders"
+            className="text-sm text-slate-300 hover:text-white transition"
+          >
+            Đơn hàng
+          </Link>
           <span className="text-sm text-slate-400">{user?.name}</span>
           <button
             onClick={handleLogout}
